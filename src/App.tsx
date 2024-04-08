@@ -10,6 +10,7 @@ import Share from "./components/Share";
 declare global {
     interface Window {
         Kakao: any;
+        webkitSpeechRecognition: any;
     }
 
 }
@@ -26,8 +27,6 @@ function App() {
             <RecorderControls recorderState={recorderState} handlers={handlers} text={text} isListening={isListening} hasRecognitionSupport={hasRecognitionSupport}/>
             <RecordingsList audio={audio} audioName={audioName}/>
             <Share />
-            {/*<AudioRecord />*/}
-            {/*<Recorder2 />*/}
         </div>
     );
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import {RecorderControlsProps} from "../types/recorder";
 import {formatTimes} from "../utils/formatDateTime";
 import styled from "styled-components";
-import useSpeechRecognition from "../hooks/useSpeechRecognition";
 
 const ControlsContainer = styled.section`
   //height: 15%;

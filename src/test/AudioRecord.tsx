@@ -25,7 +25,7 @@ const AudioRecord = () => {
         const audio = document.createElement('audio');
         audio.src = url;
         audio.controls = true;
-        audio.setAttribute('controlsList', 'nodownload');
+        // audio.setAttribute('controlsList', 'nodownload');
 
         document.body.appendChild(audio);
     };

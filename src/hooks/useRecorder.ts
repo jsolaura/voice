@@ -1,7 +1,9 @@
 import {Recorder, Interval, MediaRecorderEvent, AudioTrack} from "../types/recorder";
 import {useEffect, useState} from "react";
 import {saveRecording, startRecording} from "../handlers/recorderControls";
-
+export interface IWindow extends Window {
+    webkitSpeechRecognition: any;
+}
 const initialState: Recorder = {
     recordingMinutes: 0,
     recordingSeconds: 0,
@@ -14,7 +16,8 @@ const initialState: Recorder = {
 };
 
 let mic: any = null;
-if ('webkitSpeechRecognition' in  window) {
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+    const {webkitSpeechRecognition} : IWindow = <IWindow>window;
     mic = new webkitSpeechRecognition();
     mic.continuous = true;
     mic.interimResults = true;
@@ -29,40 +32,40 @@ const useRecorder = () => {
     const [isListening, setIsListening] = useState(false);
 
     useEffect(() => {
-        handleListen()
+        // handleListen()
     }, [isListening]);
 
-    const handleListen = () => {
-        if (isListening) {
-            mic.start();
-            mic.onend = () => {
-                console.log('continue..');
-                mic.start();
-            }
-        } else {
-            mic.stop();
-            mic.onend = () => {
-                console.log('stopped mic on click');
-            }
-        }
-        mic.onstart = () => {
-            console.log('Mics on')
-        }
-        mic.onresult = (event: SpeechRecognitionEvent) => {
-            console.log('event.results');
-            console.log(event);
-            const transcript = Array.from(event.results)
-                .map(result => result[0])
-                .map(result => result.transcript)
-                .join('');
-            console.log(transcript);
-            setText(transcript);
-            mic.onerror = (event: any) => {
-                console.log(event.error);
-
-            }
-        }
-    }
+    // const handleListen = () => {
+    //     if (isListening) {
+    //         mic.start();
+    //         mic.onend = () => {
+    //             console.log('continue..');
+    //             mic.start();
+    //         }
+    //     } else {
+    //         mic.stop();
+    //         mic.onend = () => {
+    //             console.log('stopped mic on click');
+    //         }
+    //     }
+    //     mic.onstart = () => {
+    //         console.log('Mics on')
+    //     }
+    //     mic.onresult = (event: SpeechRecognitionEvent) => {
+    //         console.log('event.results');
+    //         console.log(event);
+    //         const transcript = Array.from(event.results)
+    //             .map(result => result[0])
+    //             .map(result => result.transcript)
+    //             .join('');
+    //         console.log(transcript);
+    //         setText(transcript);
+    //         mic.onerror = (event: any) => {
+    //             console.log(event.error);
+    //
+    //         }
+    //     }
+    // }
 
     // Time interval
     useEffect(() => {
