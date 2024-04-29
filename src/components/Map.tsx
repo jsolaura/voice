@@ -1,8 +1,9 @@
 import React, {MutableRefObject, useEffect, useRef, useState} from 'react';
 import styled from "styled-components";
-import MarkerImage from '@/assets/images/soundwave.png';
 import Detail from "@/components/Detail";
-import Marker = kakao.maps.Marker;
+// import MarkerImage from '@/assets/images/soundwave.png';
+
+import {LocationProps} from "@/types/maps";
 declare global {
     interface Window {
         kakao: any;
@@ -44,7 +45,7 @@ const MapContainer = styled.div`
 const Map = () => {
     const [openDetail, setOpenDetail] = useState<boolean>(false);
     const [latLng, setLatLng] = useState<string>('');
-    const [detail, setDetail] = useState<Marker | null>(null);
+    const [location, setDetailLocation] = useState<LocationProps | null>(null);
 
     const mapRef = useRef<HTMLElement | null>(null);
     const clickDetail = (data: any) => {
@@ -53,7 +54,7 @@ const Map = () => {
 
             setLatLng(message);
             setOpenDetail(true);
-            setDetail(data);
+            setDetailLocation(data);
         }
     }
 
@@ -118,8 +119,8 @@ const Map = () => {
     return (
         <>
             <MapContainer id='map' />
-            {detail &&
-                <Detail detail={detail} openDetail={openDetail} setOpenDetail={setOpenDetail} />
+            {location &&
+                <Detail location={location} openDetail={openDetail} setOpenDetail={setOpenDetail} />
             }
         </>
     );

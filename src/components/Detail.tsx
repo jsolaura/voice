@@ -1,15 +1,7 @@
 import React, {Dispatch, SetStateAction} from 'react';
 import styled from "styled-components";
-import Marker = kakao.maps.Marker;
+import {DetailProps} from "@/types/maps";
 
-interface DetailProps {
-    openDetail: boolean;
-    setOpenDetail: Dispatch<SetStateAction<boolean>>;
-    detail: {
-        title: string;
-        latlng: kakao.maps.LatLng;
-    }
-}
 const DetailContainer = styled.div`
   position: fixed;
   width: 0;
@@ -30,16 +22,16 @@ const DetailContainer = styled.div`
     
   }
 `;
-const Detail = ({ openDetail, setOpenDetail, detail }: DetailProps) => {
+const Detail = ({ openDetail, setOpenDetail, location }: DetailProps) => {
     return (
         <DetailContainer className={openDetail ? 'openDetail' : ''}>
             <h1>Detail Page</h1>
 
-            {detail?.latlng !== null &&
+            {location?.latlng !== null &&
                 <h3>
-                    위도 - {detail?.latlng.getLat()}
+                    위도 - {location?.latlng.getLat()}
                     <br/>
-                    경도 - {detail?.latlng.getLng()}
+                    경도 - {location?.latlng.getLng()}
                 </h3>
             }
             <button onClick={() => setOpenDetail(false)}>
