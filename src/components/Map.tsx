@@ -118,8 +118,9 @@ const Map = () => {
     return (
         <>
             <MapContainer id='map' />
-            {/*<p>{latLng}</p>*/}
-            <Detail detail={detail} openDetail={openDetail} setOpenDetail={setOpenDetail} />
+            {detail &&
+                <Detail detail={detail} openDetail={openDetail} setOpenDetail={setOpenDetail} />
+            }
         </>
     );
 };
