@@ -1,16 +1,14 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import AudioRecord from "./test/AudioRecord";
-import Recorder2 from "./test/Recorder2";
 import RecorderControls from "./components/RecorderControls";
 import RecordingsList from "./components/RecordingsList";
 import useRecorder from "./hooks/useRecorder";
 import Share from "./components/Share";
+import Map from "@/components/Map";
 
 declare global {
     interface Window {
         Kakao: any;
-        webkitSpeechRecognition: any;
     }
 
 }
@@ -24,9 +22,10 @@ function App() {
     }, [])
     return (
         <div className="App">
-            <RecorderControls recorderState={recorderState} handlers={handlers} text={text} isListening={isListening} hasRecognitionSupport={hasRecognitionSupport}/>
-            <RecordingsList audio={audio} audioName={audioName}/>
-            <Share />
+            {/*<RecorderControls recorderState={recorderState} handlers={handlers} text={text} isListening={isListening} hasRecognitionSupport={hasRecognitionSupport}/>*/}
+            {/*<RecordingsList audio={audio} audioName={audioName}/>*/}
+            {/*<Share />*/}
+            <Map />
         </div>
     );
 }

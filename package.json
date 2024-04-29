@@ -46,6 +46,7 @@
   "devDependencies": {
     "@types/react-speech-recognition": "^3.9.5",
     "@vitejs/plugin-react": "^4.2.1",
+    "kakao.maps.d.ts": "^0.1.39",
     "vite": "^5.2.7",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2"

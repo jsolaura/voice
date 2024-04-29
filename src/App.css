@@ -2,7 +2,7 @@
   text-align: center;
   background-color: #282c34;
   color: white;
-  padding: 1rem;
+  /*padding: 1rem;*/
   min-height: 100vh;
 }
 
@@ -70,7 +70,6 @@ button {
   font-size: 1rem;
   background: none;
   text-align: center;
-  color: white;
   border: none;
   transition: all 0.2s;
   padding: 0.5rem;
