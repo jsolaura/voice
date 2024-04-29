@@ -11,6 +11,11 @@ const DetailContainer = styled.div`
   transform: translateY(100%);
   z-index: -100;
   transition: transform .35s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   &.openDetail {
     width: 100vw;
     height: 100vh;
@@ -19,6 +24,10 @@ const DetailContainer = styled.div`
     background: #fff;
     color: #000;
     z-index: 1000;
+  }
+  button {
+    cursor: pointer;
+    padding: 1rem;
     
   }
 `;
