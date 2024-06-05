@@ -1,12 +1,11 @@
-import {Dispatch, SetStateAction} from "react";
+import React from "react";
 
-export type LocationProps = {
+export type DetailInfoProps = {
+    id: string;
+    latlng: {lat: number, lng: number};
     title: string;
-    latlng: kakao.maps.LatLng;
 }
-
-export interface DetailProps {
-    openDetail: boolean;
-    setOpenDetail: Dispatch<SetStateAction<boolean>>;
-    location: LocationProps
+export interface CustomOverlayProps {
+    detail: DetailInfoProps
+    handleClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
