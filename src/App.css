@@ -106,7 +106,6 @@ article {
 audio {
   width: 100%;
   display: block;
-  margin: 1rem auto 0.5rem;
 }
 
 .clip p {
@@ -149,4 +148,11 @@ button.delete {
   border-radius: 1rem;
   background: linear-gradient(to right, #41295a, #2f0743);
   color: #fff;
+}
+.player-wrapper {
+  width: auto;
+  height: auto;
+}
+.react-player {
+  position: relative;
 }

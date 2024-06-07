@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import MuteIcon from "@/assets/images/mute.svg";
-import VolumeUpIcon from "@/assets/images/volumeUp.svg";
+import MuteContent from "@/assets/images/muteContent.svg";
+import SoundUpContent from "@/assets/images/soundupContent.svg";
 import ShareExportButtons from "@/components/common/ShareExportButtons";
+import AudioPlayer from "@/components/audioPlayer/AudioPlayer";
 
 const DetailContainer = styled.div`
   width: 100vw;
@@ -38,6 +39,11 @@ const DetailContainer = styled.div`
     border: 1px solid orange;
   }
   .evaluateContainer {
+    * {
+      background: linear-gradient(0deg, #EBEDEE, #EBEDEE);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
     .evaluateButtons {
       width: 90%;
       margin: 38px auto 0;
@@ -86,22 +92,16 @@ const Detail = () => {
                     {data.content}
                 </div>
             ) : (
-                <div className='audioContainer'>
-
-                </div>
+                <AudioPlayer />
             )}
             <div className='evaluateContainer'>
                 <p>콘텐츠를 평가해주세요.</p>
                 <div className='evaluateButtons'>
                     <button>
-                        <img src={MuteIcon} alt='Mute Icon'/>
-                        <span>Mute</span>
-                        <span>{type === 'text' ? '보고' : '듣고 '}싶지 않아요.</span>
+                        <img src={MuteContent} alt='Mute Icon'/>
                     </button>
                     <button>
-                        <img src={VolumeUpIcon} alt='VolumeUp Icon'/>
-                        <span>Sound-Up</span>
-                        <span>더 많은 사람이<br/>{type === 'text' ? '보기' : '듣길'} 바래요.</span>
+                        <img src={SoundUpContent} alt='VolumeUp Icon'/>
                     </button>
                 </div>
             </div>
