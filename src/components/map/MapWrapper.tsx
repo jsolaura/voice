@@ -1,14 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import styled from "styled-components";
 import {CustomOverlayMap, Map, MapMarker, MarkerClusterer} from "react-kakao-maps-sdk";
 import MarkerImage from '@/assets/images/marker.png';
-import {getCount} from "@/utils/common";
+import {getCount, setupAddress} from "@/utils/common";
 import CustomOverlay from "@/components/map/CustomOverlay";
-import {DetailInfoProps, LatLngType} from "@/types/maps";
+import {DetailInfoProps} from "@/types/maps";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import {useRecoilState} from "recoil";
-import {modalState} from "@/recoil/CommonAtom";
-import {currentPositionState} from "@/recoil/MapAtom";
+import {addressState, currentPositionState} from "@/recoil/MapAtom";
 
 let positions = [
     {
@@ -73,6 +72,7 @@ const MapContainer = styled.div`
 
 const MapWrapper = () => {
     const [currentPosition, setCurrentPosition] = useRecoilState(currentPositionState);
+    const [, setAddress] = useRecoilState(addressState);
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [level, setLever] = useState<number>(4)
     const [detail, setDetail] = useState<DetailInfoProps>({
@@ -81,6 +81,16 @@ const MapWrapper = () => {
         latlng: currentPosition,
     })
     const mapRef = useRef<kakao.maps.Map>(null);
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    const overlayRef = useOutsideClick(() => {
+        setIsOpen(false);
+        setDetail({
+            id: '',
+            title: '',
+            latlng: currentPosition,
+        })
+    })
 
     const handleClusterClick = () => {
         const map = mapRef.current
@@ -95,14 +105,21 @@ const MapWrapper = () => {
         setIsOpen(true);
     }
 
-    const ref = useOutsideClick(() => {
-        setIsOpen(false);
+    const handleCenterChanged = useCallback((map: kakao.maps.Map) => {
+        const level = map.getLevel()
+        const coords = map.getCenter()
+        setLever(level)
+        setCurrentPosition({ lat: coords.getLat(), lng: coords.getLng(), })
         setDetail({
-            id: '',
-            title: '',
-            latlng: currentPosition,
+            ...detail,
+            latlng: {
+                lat: coords.getLat(),
+                lng: coords.getLng(),
+            },
         })
-    })
+        geocoder.coord2Address(coords.getLng(), coords.getLat(), (result, status) =>  setAddress(setupAddress(result[0].address.address_name.split(' '), status)));
+
+    },[]);
     return (
         <>
             <MapContainer>
@@ -110,19 +127,7 @@ const MapWrapper = () => {
                     ref={mapRef}
                     center={currentPosition}
                     level={level}
-                    onCenterChanged={(map) => {
-                        const level = map.getLevel()
-                        const coords = map.getCenter()
-                        setLever(level)
-                        setCurrentPosition({ lat: coords.getLat(), lng: coords.getLng(), })
-                        setDetail({
-                            ...detail,
-                            latlng: {
-                                lat: coords.getLat(),
-                                lng: coords.getLng(),
-                            },
-                        })
-                    }}
+                    onCenterChanged={handleCenterChanged}
                     style={{
                         width: '100vw',
                         height: '100vh',
@@ -163,7 +168,7 @@ const MapWrapper = () => {
                     </MarkerClusterer>
                     {isOpen &&
                     <CustomOverlayMap position={detail?.latlng} zIndex={100}>
-                        <div ref={ref}>
+                        <div ref={overlayRef}>
                             <CustomOverlay
                                 handleClose={() => setIsOpen(false)}
                                 detail={detail}

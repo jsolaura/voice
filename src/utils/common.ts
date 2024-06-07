@@ -15,3 +15,8 @@ export const durationFormat = (value: number) => {
     const secondLeft = value - minute * 60;
     return `0${minute}:${secondLeft < 10 ? `0${secondLeft}` : secondLeft}`;
 }
+export const setupAddress= (result: string[], status: string) => {
+    if (status === 'OK') {
+        return result.slice(0, 3).join(' ');
+    } else return '';
+}

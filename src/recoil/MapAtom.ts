@@ -8,3 +8,7 @@ export const currentPositionState = atom<LatLngType>({
         lng: 0,
     }
 })
+export const addressState = atom<string>({
+    key: 'addressState',
+    default: '',
+})
