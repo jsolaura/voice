@@ -1,8 +1,11 @@
 import React from "react";
-
+export interface LatLngType {
+    lat: number;
+    lng: number;
+}
 export type DetailInfoProps = {
     id: string;
-    latlng: {lat: number, lng: number};
+    latlng: LatLngType;
     title: string;
 }
 export interface CustomOverlayProps {

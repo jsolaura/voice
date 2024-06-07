@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from "styled-components";
 import {CustomOverlayMap, Map, MapMarker, MarkerClusterer} from "react-kakao-maps-sdk";
 import MarkerImage from '@/assets/images/marker.png';
 import {getCount} from "@/utils/common";
 import CustomOverlay from "@/components/map/CustomOverlay";
-import {DetailInfoProps} from "@/types/maps";
+import {DetailInfoProps, LatLngType} from "@/types/maps";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import {useRecoilState} from "recoil";
+import {modalState} from "@/recoil/CommonAtom";
+import {currentPositionState} from "@/recoil/MapAtom";
 
 let positions = [
     {
@@ -69,17 +72,22 @@ const MapContainer = styled.div`
 `;
 
 const MapWrapper = () => {
-    const defaultCenter = {lat: 37.5338, lng: 126.9371};
+    const [currentPosition, setCurrentPosition] = useRecoilState(currentPositionState);
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [level, setLever] = useState<number>(4)
     const [detail, setDetail] = useState<DetailInfoProps>({
         id: '',
         title: '',
-        latlng: defaultCenter,
+        latlng: currentPosition,
     })
+    const mapRef = useRef<kakao.maps.Map>(null);
 
-    const clusterClick = (target: kakao.maps.MarkerClusterer, cluster: kakao.maps.Cluster) => {
-        if (level >= 4) setLever(level);
+    const handleClusterClick = () => {
+        const map = mapRef.current
+        if (map !== null) {
+            map.setLevel(map.getLevel() - 1);
+            setLever(map.getLevel())
+        }
     }
 
     const handleMarkerClick = (info: DetailInfoProps) => {
@@ -92,15 +100,29 @@ const MapWrapper = () => {
         setDetail({
             id: '',
             title: '',
-            latlng: defaultCenter,
+            latlng: currentPosition,
         })
     })
     return (
         <>
             <MapContainer>
                 <Map
-                    center={defaultCenter}
-                    level={4}
+                    ref={mapRef}
+                    center={currentPosition}
+                    level={level}
+                    onCenterChanged={(map) => {
+                        const level = map.getLevel()
+                        const coords = map.getCenter()
+                        setLever(level)
+                        setCurrentPosition({ lat: coords.getLat(), lng: coords.getLng(), })
+                        setDetail({
+                            ...detail,
+                            latlng: {
+                                lat: coords.getLat(),
+                                lng: coords.getLng(),
+                            },
+                        })
+                    }}
                     style={{
                         width: '100vw',
                         height: '100vh',
@@ -113,7 +135,7 @@ const MapWrapper = () => {
                         disableClickZoom={true}
                         calculator={[50]}
                         texts={getCount}
-                        onClusterclick={clusterClick}
+                        onClusterclick={handleClusterClick}
                         styles={[{
                             width: '50px',
                             height: '50px',
