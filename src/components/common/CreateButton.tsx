@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
+import {useNavigate} from "react-router";
 
 const AddBtn = styled.button`
   width: 100px;
@@ -33,12 +34,10 @@ const AddBtn = styled.button`
 `;
 
 const CreateButton = () => {
-    const [isClicked, setIsClicked] = useState(false);
-    const handleClick = () => {
-        setIsClicked(!isClicked);
-    }
+    const navigate = useNavigate();
+
     return (
-        <AddBtn onClick={handleClick} className={isClicked ? 'clicked' : ''}>
+        <AddBtn onClick={() => navigate('/create')} >
             <span />
             <span />
         </AddBtn>

@@ -1,9 +1,9 @@
 .App {
   text-align: center;
   /*background-color: #282c34;*/
-  color: white;
   /*padding: 1rem;*/
   height: 100vh;
+  color: #fff;
 }
 
 .App-logo {
@@ -148,6 +148,21 @@ button.delete {
   border-radius: 1rem;
   background: linear-gradient(to right, #41295a, #2f0743);
   color: #fff;
+}
+.underline {
+  text-decoration: underline;
+}
+.p0 {
+  padding: 0;
+}
+
+.main {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 164px 24px;
+  background: linear-gradient(180deg, #243D66 0%, #6E61CA 100%);
+  text-align: center;
+  color: #EBEDEE;
 }
 .player-wrapper {
   width: auto;

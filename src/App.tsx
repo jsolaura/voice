@@ -11,6 +11,8 @@ const Login = React.lazy(() => import('./pages/Login'));
 const Redirect = React.lazy(() => import('./pages/auth/Redirect'));
 const ProtectedRoute = React.lazy(() => import('./routes/ProtectedRoute'));
 const Detail = React.lazy(() => import('./pages/Detail'));
+const Create = React.lazy(() => import('./pages/Create'));
+const MyPage = React.lazy(() => import('./pages/MyPage'));
 
 declare global {
     interface Window {
@@ -40,6 +42,8 @@ function App() {
                     <Route path='/auth' element={<Redirect />} />
                     {/*<Route element={<ProtectedRoute />}>*/}
                         <Route path='/detail/:id' element={<Detail />} />
+                        <Route path='/create' element={<Create />} />
+                        <Route path='/myPage' element={<MyPage />} />
                     {/*</Route>*/}
                 </Route>
             </Routes>

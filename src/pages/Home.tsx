@@ -6,6 +6,7 @@ import {useRecoilState} from "recoil";
 import {addressState, currentPositionState} from "@/recoil/MapAtom";
 import {isLoggedInState} from "@/recoil/CommonAtom";
 import {setupAddress} from "@/utils/common";
+import MyPageHam from "@/components/common/MyPageHam";
 
 const Home = () => {
     const [isLoggedIn, ] = useRecoilState(isLoggedInState);
@@ -26,11 +27,10 @@ const Home = () => {
     }
     return (
         <div className="App">
+            { isLoggedIn && <MyPageHam /> }
             <Header />
             <MapWrapper />
-            {isLoggedIn &&
-                <CreateButton />
-            }
+            { isLoggedIn && <CreateButton /> }
         </div>
     );
 };

@@ -5,16 +5,10 @@ import SoundUpContent from "@/assets/images/soundupContent.svg";
 import ShareExportButtons from "@/components/common/ShareExportButtons";
 import AudioPlayer from "@/components/audioPlayer/AudioPlayer";
 
-const DetailContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  padding: 164px 24px;
-  background: linear-gradient(180deg, #243D66 0%, #6E61CA 100%);
+const DetailContainer = styled.main`
   display: flex;
   flex-direction: column;
-  text-align: center;
   gap: 110px;
-  color: #EBEDEE;
   .btnContainer {
     position: absolute;
     top: 22px;
@@ -80,8 +74,8 @@ const Detail = () => {
         content: `오늘 공덕역 맛집 찾아서 너무 행복\n 여기서 오른쪽 골목길로 들어가면 있는 첫번째 집!\n 숙성회가 너무 맛있었다`
     }
     return (
-        <DetailContainer>
-            <ShareExportButtons className='btnContainer' disabled={false} />
+        <DetailContainer className='main'>
+            <ShareExportButtons className='btnContainer' disabled={false} isSaved={true} />
             <div className='titleContainer'>
                 <h3>{data.address}</h3>
                 <h4>{data.createAt}</h4>
