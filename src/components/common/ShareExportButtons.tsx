@@ -8,9 +8,10 @@ import ExportWhiteIcon from "@/assets/images/export_white.svg";
 interface ShareExportButtonsProps {
     className?: string;
     disabled?: boolean;
-    isSaved?: boolean;
+    savedYn?: string;
 }
-const ShareExportButtons = ({ className, disabled = true, isSaved = false }: ShareExportButtonsProps) => {
+const ShareExportButtons = ({ className, disabled = true, savedYn }: ShareExportButtonsProps) => {
+    const isSaved = savedYn === 'y';
     return (
         <div className={className}>
             <button>

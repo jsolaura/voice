@@ -32,7 +32,6 @@ const SuspenseLayout = () => (
 function App() {
     const { Kakao } = window;
     const { modalDataState } = useModal();
-
     useEffect(() => {
         Kakao.init(import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY);
     }, [])

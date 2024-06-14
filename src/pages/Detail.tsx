@@ -4,6 +4,9 @@ import MuteContent from "@/assets/images/muteContent.svg";
 import SoundUpContent from "@/assets/images/soundupContent.svg";
 import ShareExportButtons from "@/components/common/ShareExportButtons";
 import AudioPlayer from "@/components/audioPlayer/AudioPlayer";
+import {useLocation, useParams} from "react-router";
+import {useQuery} from "@tanstack/react-query";
+import {fetchContent, fetchContents} from "@/services/contentsService";
 
 const DetailContainer = styled.main`
   display: flex;
@@ -64,41 +67,41 @@ const DetailContainer = styled.main`
 
 const Detail = () => {
     const [type, setType] = useState('audio');
-
-    const data = {
-        id: 'safasdfasdfasdfasd',
-        title: '내 목소리 평가좀!',
-        latlng: {lat: 37.536402491731295, lng: 126.94057647402754},
-        address: '마포구 공덕동',
-        createAt: '2024.06.02',
-        content: `오늘 공덕역 맛집 찾아서 너무 행복\n 여기서 오른쪽 골목길로 들어가면 있는 첫번째 집!\n 숙성회가 너무 맛있었다`
-    }
+    const { id } = useParams();
+    const { data, status } = useQuery({
+        queryKey: ['contents'],
+        queryFn: id ? () => fetchContent(id) : undefined,
+    })
     return (
         <DetailContainer className='main'>
-            <ShareExportButtons className='btnContainer' disabled={false} isSaved={true} />
-            <div className='titleContainer'>
-                <h3>{data.address}</h3>
-                <h4>{data.createAt}</h4>
-                <h2>{data.title}</h2>
-            </div>
-            {type === 'text' ? (
-                <div className='textContainer'>
-                    {data.content}
+            {data && status === 'success' &&
+                <>
+                <ShareExportButtons className='btnContainer' disabled={false} savedYn={data.savedYn} />
+                <div className='titleContainer'>
+                    <h3>{data.address}</h3>
+                    <h4>{data.createAt}</h4>
+                    <h2>{data.title}</h2>
                 </div>
-            ) : (
-                <AudioPlayer />
-            )}
-            <div className='evaluateContainer'>
-                <p>콘텐츠를 평가해주세요.</p>
-                <div className='evaluateButtons'>
-                    <button>
-                        <img src={MuteContent} alt='Mute Icon'/>
-                    </button>
-                    <button>
-                        <img src={SoundUpContent} alt='VolumeUp Icon'/>
-                    </button>
+                {data.type === 'text' ? (
+                    <div className='textContainer'>
+                        {data.text}
+                    </div>
+                ) : (
+                    <AudioPlayer />
+                )}
+                <div className='evaluateContainer'>
+                    <p>콘텐츠를 평가해주세요.</p>
+                    <div className='evaluateButtons'>
+                        <button>
+                            <img src={MuteContent} alt='Mute Icon'/>
+                        </button>
+                        <button>
+                            <img src={SoundUpContent} alt='VolumeUp Icon'/>
+                        </button>
+                    </div>
                 </div>
-            </div>
+                </>
+            }
         </DetailContainer>
     );
 };

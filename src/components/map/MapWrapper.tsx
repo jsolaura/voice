@@ -11,10 +11,11 @@ import {useRecoilState} from "recoil";
 import {addressState, currentPositionState} from "@/recoil/MapAtom";
 import {fetchContents} from "@/services/contentsService";
 import {useQuery} from "@tanstack/react-query";
+import {Content} from "@/types/contents";
 
 let positions = [
     {
-        id: 'safasdfasdfasdfasd',
+        id: 'test1',
         title: '카카오',
         latlng: {lat: 37.54519899908906, lng: 126.94631791119016}
     },
@@ -59,7 +60,7 @@ let positions = [
         latlng: {lat: 37.536402491731295, lng: 126.94057647402754}
     },
     {
-        id: 'safasdfasdfasdfasd',
+        id: 'test1',
         title: '근린공원3',
         latlng: {lat: 37.531713475444796, lng: 126.9334299062848}
     },
@@ -73,15 +74,11 @@ const MapContainer = styled.div`
   top: 0;
 `;
 
-const useContents = () => {
-    // return useQuery({ queryKey: ['contents'], queryFn: fetchContents })
-}
-
 const MapWrapper = () => {
-    // const { data, status } = useQuery({
-    //     queryKey: ['contents'],
-    //     queryFn: fetchContents,
-    // })
+    const { data, status } = useQuery({
+        queryKey: ['contents'],
+        queryFn: fetchContents,
+    })
 
     const [currentPosition, setCurrentPosition] = useRecoilState(currentPositionState);
     const [, setAddress] = useRecoilState(addressState);
@@ -129,7 +126,7 @@ const MapWrapper = () => {
                 lng: coords.getLng(),
             },
         })
-        geocoder.coord2Address(coords.getLng(), coords.getLat(), (result, status) =>  setAddress(setupAddress(result[0].address.address_name.split(' '), status)));
+        geocoder.coord2Address(coords.getLng(), coords.getLat(), (result, status) =>  setAddress(setupAddress(result[0]?.address?.address_name.split(' '), status)));
 
     },[]);
     return (

@@ -6,7 +6,7 @@ import {addressState, currentPositionState} from "@/recoil/MapAtom";
 import {isLoggedInState} from "@/recoil/CommonAtom";
 import {setupAddress} from "@/utils/common";
 import SideNav from "@/components/common/SideNav";
-import BottomNav from "@/components/common/modal/BottomNav";
+import BottomNav from "@/components/common/BottomNav";
 import {LatLngType} from "@/types/maps";
 
 const Home = () => {

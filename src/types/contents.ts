@@ -10,6 +10,8 @@ export interface FormDataType {
 export interface Content extends FormDataType {
     id: number | string;
     audioFile?: string;
-    createAt: Date;
+    createAt: string;
     latlng: LatLngType;
+    address?: string;
+    savedYn?: string;
 }

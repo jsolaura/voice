@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
 );
 
 async function enableMocking() {
-    if (import.meta.env.NODE_ENV !== 'development') {
+    if (import.meta.env.MODE !== 'development') {
         return;
     }
     if (typeof  window === 'undefined') {
@@ -36,9 +36,3 @@ enableMocking().then(() => {
         </RecoilRoot>
     );
 })
-async function prepare() {
-    if (import.meta.env.NODE_ENV === 'development') {
-        const { worker } = await import('./mocks/browser');
-        return worker.start();
-    }
-}
