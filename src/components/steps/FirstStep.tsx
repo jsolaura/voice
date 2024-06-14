@@ -1,6 +1,6 @@
 import React, {ChangeEventHandler, forwardRef} from 'react';
 import {Input} from "@mui/material";
-import {FormDataType} from "@/types/create";
+import {FormDataType} from "@/types/contents";
 import styled from "styled-components";
 
 const FirstStepContainer = styled.article`

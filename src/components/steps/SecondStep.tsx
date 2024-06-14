@@ -1,6 +1,6 @@
 import React, {Dispatch} from 'react';
 import RecordingBtn from "@/assets/images/recordingBtn.svg";
-import {FormDataType} from "@/types/create";
+import {FormDataType} from "@/types/contents";
 import styled from "styled-components";
 
 const SecondStepContainer = styled.article`

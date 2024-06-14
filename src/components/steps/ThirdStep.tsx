@@ -1,6 +1,6 @@
 import React, {ChangeEventHandler} from 'react';
 import {TextareaAutosize} from "@mui/material";
-import {FormDataType} from "@/types/create";
+import {FormDataType} from "@/types/contents";
 import RecordingBtn from "@/assets/images/recordingBtn.svg";
 import styled from "styled-components";
 

@@ -1,5 +1,5 @@
 import React, {Dispatch} from 'react';
-import {FormDataType} from "@/types/create";
+import {FormDataType} from "@/types/contents";
 import styled from "styled-components";
 
 const LastStepContainer = styled.article`

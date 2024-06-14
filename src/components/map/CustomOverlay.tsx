@@ -39,7 +39,7 @@ const CustomOverlay = ({detail}: CustomOverlayProps) => {
     }
     const moveToDetail = (id: string) => {
         if (isLoggedIn) {
-            navigate(`/detail/${id}`);
+            navigate(`/content/:${id}`);
         } else {
             openModal(modalData);
         }

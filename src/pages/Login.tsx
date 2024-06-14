@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
 import Logo from '@/assets/images/logo.png';
-import KakaoLogin from '@/assets/images/kakaoLogin.svg';
-import GoogleLogin from '@/assets/images/googleLogin.svg';
+import KakaoLoginImage from '@/assets/images/kakaoLogin.svg';
+import GoogleLoginImage from '@/assets/images/googleLogin.svg';
 import {useModal} from "@/hooks/useModal";
 import {useNavigate} from "react-router";
+import {GoogleOAuthProvider, useGoogleLogin} from '@react-oauth/google';
 
 const LoginContainer = styled.div`
   width: 100vw;
@@ -18,7 +19,24 @@ const LoginContainer = styled.div`
   .noSignIn {
     text-decoration: underline;
   }
+  button {
+    width: 300px;
+    img {
+      width: 100%;
+    }
+  }
 `;
+const GoogleLoginBtn = () => {
+    const handleGoogleLogin = useGoogleLogin({
+        onSuccess: codeResponse => console.log(codeResponse),
+        onError: errorResponse => console.log(errorResponse),
+    })
+    return (
+        <button onClick={() => handleGoogleLogin()}>
+            <img src={GoogleLoginImage} alt='Google Login Button' />
+        </button>
+    )
+}
 
 const Login = () => {
     const navigate = useNavigate();
@@ -26,8 +44,9 @@ const Login = () => {
 
     const { Kakao } = window;
     const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
+    const googleOAuthClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     // const kakao_id = import.meta.env.VITE_KAKAO_CLIENT_ID;
-    const kakaoLogin = async () => {
+    const handleKakaoLogin = async () => {
         // const url = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao_id}&redirect_uri=${redirect_uri}&response_type=code`;
         // window.open(url, "_self");
         await Kakao.Auth.authorize({
@@ -44,15 +63,16 @@ const Login = () => {
             navigate(-1);
         },
     }
+
     return (
         <LoginContainer>
             <img className='logo' src={Logo} alt='logo' width={259} height={259} />
-            <button onClick={kakaoLogin}>
-                <img src={KakaoLogin} alt='KaKao Login Button' />
+            <button onClick={handleKakaoLogin}>
+                <img src={KakaoLoginImage} alt='KaKao Login Button' />
             </button>
-            <button>
-                <img src={GoogleLogin} alt='Google Login Button' />
-            </button>
+            <GoogleOAuthProvider clientId={googleOAuthClientId}>
+               <GoogleLoginBtn />
+            </GoogleOAuthProvider>
             <button className='noSignIn' onClick={() => openModal(modalData)}>비회원으로 이용할게요.</button>
         </LoginContainer>
     );

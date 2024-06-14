@@ -14,6 +14,7 @@ const Detail = React.lazy(() => import('./pages/Detail'));
 const Create = React.lazy(() => import('./pages/Create'));
 const MyPage = React.lazy(() => import('./pages/MyPage'));
 
+
 declare global {
     interface Window {
         Kakao: any;
@@ -26,9 +27,12 @@ const SuspenseLayout = () => (
     </React.Suspense>
 )
 
+// server.listen();
+
 function App() {
     const { Kakao } = window;
     const { modalDataState } = useModal();
+
     useEffect(() => {
         Kakao.init(import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY);
     }, [])
@@ -41,7 +45,7 @@ function App() {
                     <Route path='/login' element={<Login />} />
                     <Route path='/auth' element={<Redirect />} />
                     {/*<Route element={<ProtectedRoute />}>*/}
-                        <Route path='/detail/:id' element={<Detail />} />
+                        <Route path='/content/:id' element={<Detail />} />
                         <Route path='/create' element={<Create />} />
                         <Route path='/myPage' element={<MyPage />} />
                     {/*</Route>*/}

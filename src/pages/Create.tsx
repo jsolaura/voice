@@ -1,4 +1,4 @@
-import React, {Fragment, useCallback, useRef, useState} from 'react';
+import React, {FormEvent, FormEventHandler, Fragment, useCallback, useRef, useState} from 'react';
 import {InputBaseProps, MobileStepper} from "@mui/material";
 import PrevBtn from "@/assets/images/expandLeft.svg";
 import NextBtn from "@/assets/images/nextBtn.svg";
@@ -6,11 +6,14 @@ import CheckBtn from "@/assets/images/checkBtn.svg";
 import styled from "styled-components";
 import {useRecoilState} from "recoil";
 import {addressState} from "@/recoil/MapAtom";
-import {FormDataType} from "@/types/create";
+import {Content, FormDataType} from "@/types/contents";
 import FirstStep from "@/components/steps/FirstStep";
 import ThirdStep from "@/components/steps/ThirdStep";
 import LastStep from "@/components/steps/LastStep";
 import SecondStep from "@/components/steps/SecondStep";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {createContent, fetchContents} from "@/services/contentsService";
+import {useNavigate} from "react-router";
 
 const CreateContainer = styled.main`
   h2 {
@@ -62,26 +65,23 @@ const Create = () => {
     const [formData, setFormData] = useState<FormDataType>({
         title: '',
         type: 'audio',
-        content: '',
+        text: '',
         isDisplay: true,
     })
     const [address, ] = useRecoilState(addressState);
     const [activeStep, setActiveStep] = useState<number>(0);
     const maxSteps = 3;
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
     const handleChanged = useCallback((e:  React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({...formData, [name]: value});
-
     }, [formData]);
 
-    const handleSubmit = useCallback(() => {
-        if (activeStep === maxSteps) {
-            console.log('?!?')
-        } else {
-            if (activeStep !== 0) setActiveStep((prev) => prev + 1);
-        }
+    const handleNext = useCallback(() => {
+        if (activeStep !== maxSteps && activeStep !== 0) setActiveStep((prev) => prev + 1);
     }, [activeStep]);
 
     const handleSkip = useCallback((isSkip: boolean) => {
@@ -98,6 +98,23 @@ const Create = () => {
             }
         }
     }, [activeStep]);
+
+    const createContentMutation = useMutation({
+        mutationFn: (data: FormDataType) => createContent(data),
+        onSettled: () => queryClient.invalidateQueries({ queryKey: ['contents'] })
+    })
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        createContentMutation.mutate(formData);
+        setFormData({
+            title: '',
+            type: 'audio',
+            text: '',
+            isDisplay: true,
+        })
+        navigate(-1);
+    }
 
     const steps = [
         {
@@ -119,34 +136,36 @@ const Create = () => {
     ]
     return (
         <CreateContainer className='main'>
-            {activeStep > 0 &&
-                <button className='prevBtn' onClick={() => setActiveStep((prev) => prev - 1)}>
-                    <img src={PrevBtn} alt='Expend Left Button' />
-                </button>
-            }
-            <h2>{address.split(' ').slice(1, 3).join(' ')}에 기록하기</h2>
-            <div className='contentContainer'>
-                {steps.map((step) =>
-                    step.index === activeStep
-                        && <Fragment key={`step${activeStep}`}>{step.element}</Fragment>
-                )}
-            </div>
-            <MobileStepper
-                variant="progress"
-                position='static'
-                sx={{ bottom: '200px', justifyContent: activeStep === 0 ? 'center' : 'space-between' }}
-                steps={maxSteps}
-                activeStep={activeStep}
-                backButton={null}
-                nextButton={
-                        <button className='nextBtn' onClick={handleSubmit}>
-                            <img src={activeStep === maxSteps ? CheckBtn : NextBtn} alt='Next button' onClick={() => handleSkip(false)} />
-                            {activeStep == 0 && (
-                                <p className='underline' onClick={() => handleSkip(true)}>건너뛰기</p>
-                            )}
-                        </button>
+            <form onSubmit={handleSubmit}>
+                {activeStep > 0 &&
+                    <button className='prevBtn' onClick={() => setActiveStep((prev) => prev - 1)}>
+                        <img src={PrevBtn} alt='Expend Left Button' />
+                    </button>
                 }
-            />
+                <h2>{address.split(' ').slice(1, 3).join(' ')}에 기록하기</h2>
+                <div className='contentContainer'>
+                    {steps.map((step) =>
+                        step.index === activeStep
+                            && <Fragment key={`step${activeStep}`}>{step.element}</Fragment>
+                    )}
+                </div>
+                <MobileStepper
+                    variant="progress"
+                    position='static'
+                    sx={{ bottom: '200px', justifyContent: activeStep === 0 ? 'center' : 'space-between' }}
+                    steps={maxSteps}
+                    activeStep={activeStep}
+                    backButton={null}
+                    nextButton={
+                            <button className='nextBtn' type={activeStep === maxSteps ? 'submit' : 'button'} onClick={handleNext}>
+                                <img src={activeStep === maxSteps ? CheckBtn : NextBtn} alt='Next button' onClick={() => handleSkip(false)} />
+                                {activeStep == 0 && (
+                                    <p className='underline' onClick={() => handleSkip(true)}>건너뛰기</p>
+                                )}
+                            </button>
+                    }
+                />
+            </form>
         </CreateContainer>
     );
 };
