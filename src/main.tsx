@@ -31,7 +31,7 @@ enableMocking().then(() => {
         <RecoilRoot>
             <QueryClientProvider client={queryClient}>
                 <App />
-                <ReactQueryDevtools initialIsOpen />
+                {/*<ReactQueryDevtools initialIsOpen />*/}
             </QueryClientProvider>
         </RecoilRoot>
     );
