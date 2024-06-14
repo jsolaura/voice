@@ -14,16 +14,15 @@ const root = ReactDOM.createRoot(
 );
 
 async function enableMocking() {
-    if (import.meta.env.MODE !== 'development') {
-        return;
-    }
-    if (typeof  window === 'undefined') {
-        const { server } = await import('./mocks/server');
-        return server.listen();
+    if (import.meta.env.MODE === 'development') {
+        if (typeof  window === 'undefined') {
+            const { server } = await import('./mocks/server');
+            return server.listen();
 
-    } else  {
-        const { worker } = await import('./mocks/browser');
-        return worker.start();
+        } else  {
+            const { worker } = await import('./mocks/browser');
+            return worker.start();
+        }
     }
 }
 enableMocking().then(() => {
