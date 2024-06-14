@@ -39,9 +39,11 @@ const BottomNav = ({ rememberPos }: {rememberPos: LatLngType}) => {
                     <img src={AddBtn} alt='Create content button'/>
                 </Link>
             }
-            <button onClick={handleSetCurrentPos} className='currentPos'>
-                <img src={CurrentPosBtn} alt='Return to current position button'/>
-            </button>
+            {rememberPos.lat !== 0 && rememberPos.lng !== 0  &&
+                <button onClick={handleSetCurrentPos} className='currentPos'>
+                    <img src={CurrentPosBtn} alt='Return to current position button'/>
+                </button>
+            }
         </BottomNavContainer>
     );
 };

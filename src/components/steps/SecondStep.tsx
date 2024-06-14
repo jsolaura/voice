@@ -14,7 +14,7 @@ const SecondStep = ({ formData, activeStep, setFormData, setActiveStep }: {
     setActiveStep:  Dispatch<React.SetStateAction<number>>
 }) => (
     <SecondStepContainer onClick={() => setActiveStep(activeStep + 1)}>
-        <button onClick={() => setFormData({ ...formData, type: 'audio', content: '' })} className='p0'>
+        <button onClick={() => setFormData({ ...formData, type: 'audio', text: '' })} className='p0'>
             <img src={RecordingBtn} alt='Recording button'/>
         </button>
         <button onClick={() => setFormData({ ...formData, type: 'text' })}>

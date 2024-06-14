@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Header from "@/components/common/Header";
 import MapWrapper from "@/components/map/MapWrapper";
-import CreateButton from "@/components/common/CreateButton";
 import {useRecoilState} from "recoil";
 import {addressState, currentPositionState} from "@/recoil/MapAtom";
 import {isLoggedInState} from "@/recoil/CommonAtom";
