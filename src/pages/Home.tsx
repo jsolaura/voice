@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "@/components/common/Header";
 import MapWrapper from "@/components/map/MapWrapper";
 import CreateButton from "@/components/common/CreateButton";
@@ -6,13 +6,16 @@ import {useRecoilState} from "recoil";
 import {addressState, currentPositionState} from "@/recoil/MapAtom";
 import {isLoggedInState} from "@/recoil/CommonAtom";
 import {setupAddress} from "@/utils/common";
-import MyPageHam from "@/components/common/MyPageHam";
+import SideNav from "@/components/common/SideNav";
+import BottomNav from "@/components/common/modal/BottomNav";
+import {LatLngType} from "@/types/maps";
 
 const Home = () => {
     const [isLoggedIn, ] = useRecoilState(isLoggedInState);
     const [currentPosition, setCurrentPosition] = useRecoilState(currentPositionState);
     const [, setAddress] = useRecoilState(addressState);
     const geocoder = new kakao.maps.services.Geocoder();
+    const [rememberPos, setRememberPos] = useState<LatLngType>({lat: 0 , lng: 0});
     useEffect(() => {
         if(currentPosition.lng === 0 && currentPosition.lat === 0) {
             getCurrentPosition();
@@ -23,14 +26,16 @@ const Home = () => {
     }
     const getPositionSuccess = (pos: GeolocationPosition) => {
         setCurrentPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude })
+        setRememberPos({ lat: pos.coords.latitude, lng: pos.coords.longitude })
         geocoder.coord2Address(pos.coords.longitude, pos.coords.latitude, (result, status) => setAddress(setupAddress(result[0].address.address_name.split(' '), status)));
     }
     return (
         <div className="App">
-            { isLoggedIn && <MyPageHam /> }
+            { isLoggedIn && <SideNav /> }
             <Header />
             <MapWrapper />
-            { isLoggedIn && <CreateButton /> }
+            <BottomNav rememberPos={rememberPos} />
+            {/*{ isLoggedIn && <CreateButton /> }*/}
         </div>
     );
 };

@@ -1,13 +1,16 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import styled from "styled-components";
 import {CustomOverlayMap, Map, MapMarker, MarkerClusterer} from "react-kakao-maps-sdk";
-import MarkerImage from '@/assets/images/marker.png';
+import MarkerImage from '@/assets/images/marker.svg';
+import CurrentMarkerImage from '@/assets/images/currentMarker.svg';
 import {getCount, setupAddress} from "@/utils/common";
 import CustomOverlay from "@/components/map/CustomOverlay";
 import {DetailInfoProps} from "@/types/maps";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import {useRecoilState} from "recoil";
 import {addressState, currentPositionState} from "@/recoil/MapAtom";
+import {fetchContents} from "@/services/contentsService";
+import {useQuery} from "@tanstack/react-query";
 
 let positions = [
     {
@@ -70,7 +73,16 @@ const MapContainer = styled.div`
   top: 0;
 `;
 
+const useContents = () => {
+    return useQuery({ queryKey: ['contents'], queryFn: fetchContents })
+}
+
 const MapWrapper = () => {
+    const { data, status } = useQuery({
+        queryKey: ['contents'],
+        queryFn: fetchContents,
+    })
+
     const [currentPosition, setCurrentPosition] = useRecoilState(currentPositionState);
     const [, setAddress] = useRecoilState(addressState);
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -134,6 +146,16 @@ const MapWrapper = () => {
                         position: 'relative',
                     }}
                 >
+                    <MapMarker
+                        position={currentPosition}
+                        image={{
+                            src: CurrentMarkerImage,
+                            size: {
+                                width: 29,
+                                height: 29,
+                            },
+                        }}
+                    />
                     <MarkerClusterer
                         averageCenter={true}
                         minLevel={4}

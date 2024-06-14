@@ -171,3 +171,9 @@ button.delete {
 .react-player {
   position: relative;
 }
+
+.MuiDrawer-paperAnchorRight {
+  min-width: 178px;
+  padding: 38px 32px;
+  background: #FAFAFA !important;
+}
