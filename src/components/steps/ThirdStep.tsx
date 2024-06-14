@@ -33,7 +33,7 @@ const ThirdStep = ({ formData, handleChanged }: { formData: FormDataType, handle
         {formData.type === 'text' ? (
             <div className='description'>
                 <TextareaAutosize
-                    name='content'
+                    name='text'
                     value={formData.text}
                     onChange={handleChanged}
                     maxLength={199}
