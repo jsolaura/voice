@@ -34,12 +34,12 @@ const ThirdStep = ({ formData, handleChanged }: { formData: FormDataType, handle
             <div className='description'>
                 <TextareaAutosize
                     name='content'
-                    value={formData.content}
+                    value={formData.text}
                     onChange={handleChanged}
                     maxLength={199}
                     placeholder='떠오르는 생각, 느낌을 자유롭게 적어주세요.'
                 />
-                <span>{!formData.content ? 0 : formData.content.length}/200</span>
+                <span>{!formData.text ? 0 : formData.text.length}/200</span>
             </div>
         ) : (
             <div className='recording'>
