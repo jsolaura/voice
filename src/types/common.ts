@@ -1,7 +1,7 @@
 
 export type APIResponse<T> = {
     statusCode: number;
-    errorCode: nuber;
+    errorCode: number;
     message: string;
     result: T;
     timestamp: Date;
