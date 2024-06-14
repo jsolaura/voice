@@ -74,14 +74,14 @@ const MapContainer = styled.div`
 `;
 
 const useContents = () => {
-    return useQuery({ queryKey: ['contents'], queryFn: fetchContents })
+    // return useQuery({ queryKey: ['contents'], queryFn: fetchContents })
 }
 
 const MapWrapper = () => {
-    const { data, status } = useQuery({
-        queryKey: ['contents'],
-        queryFn: fetchContents,
-    })
+    // const { data, status } = useQuery({
+    //     queryKey: ['contents'],
+    //     queryFn: fetchContents,
+    // })
 
     const [currentPosition, setCurrentPosition] = useRecoilState(currentPositionState);
     const [, setAddress] = useRecoilState(addressState);

@@ -17,7 +17,7 @@ const LastStepContainer = styled.article`
       padding: 18px 0;
       border-radius: 10px;
       border: 1px solid #C282FA7F;
-      &:last-child {
+      &.active {
         border-radius: 10px;
         background: #C282FA7F;
       }
@@ -31,8 +31,8 @@ const LastStep = ({ formData, setFormData }: {
     <LastStepContainer>
         <p>비공개로 할까요?</p>
         <div className='buttons'>
-            <button onClick={() => setFormData({ ...formData, isDisplay: false })}>네.</button>
-            <button onClick={() => setFormData({ ...formData, isDisplay: true })}>아니요.</button>
+            <button onClick={() => setFormData({ ...formData, displayedYn: 'n' })} className={formData.displayedYn === 'n' ? 'active' : ''}>네.</button>
+            <button onClick={() => setFormData({ ...formData, displayedYn: 'y' })} className={formData.displayedYn === 'y' ? 'active' : ''}>아니요.</button>
         </div>
     </LastStepContainer>
 

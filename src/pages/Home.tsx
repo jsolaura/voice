@@ -35,7 +35,6 @@ const Home = () => {
             <Header />
             <MapWrapper />
             <BottomNav rememberPos={rememberPos} />
-            {/*{ isLoggedIn && <CreateButton /> }*/}
         </div>
     );
 };

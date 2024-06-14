@@ -4,7 +4,7 @@ export interface FormDataType {
     title?: string;
     type: string;
     text?: string;
-    isDisplay: boolean;
+    displayedYn: string;
 }
 
 export interface Content extends FormDataType {

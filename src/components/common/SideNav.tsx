@@ -7,7 +7,7 @@ import {useNavigate} from "react-router";
 import {Box, SwipeableDrawer} from "@mui/material";
 import {Link} from "react-router-dom";
 
-const SideNavContainer = styled.button`
+const SideNavContainer = styled.div`
   position: fixed;
   top: 10px;
   right: 10px;

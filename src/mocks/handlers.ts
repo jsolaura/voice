@@ -17,7 +17,7 @@ export const handlers = [
                 title: 'test1',
                 type: 'text',
                 text: '여기 너무 좋아요!',
-                isDisplay: true,
+                displayedYn: 'y',
             },
             {
                 id: 'test2',
@@ -27,7 +27,7 @@ export const handlers = [
                 title: 'test2',
                 type: 'text',
                 text: '오늘은 ~~하는 날',
-                isDisplay: true,
+                displayedYn: 'n',
             },
         ]);
     }),

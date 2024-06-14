@@ -66,7 +66,7 @@ const Create = () => {
         title: '',
         type: 'audio',
         text: '',
-        isDisplay: true,
+        displayedYn: 'y',
     })
     const [address, ] = useRecoilState(addressState);
     const [activeStep, setActiveStep] = useState<number>(0);
@@ -80,40 +80,42 @@ const Create = () => {
         setFormData({...formData, [name]: value});
     }, [formData]);
 
-    const handleNext = useCallback(() => {
+    const handleNext = () => {
         if (activeStep !== maxSteps && activeStep !== 0) setActiveStep((prev) => prev + 1);
-    }, [activeStep]);
+    };
 
-    const handleSkip = useCallback((isSkip: boolean) => {
+    const handleSkip = (isSkip: boolean) => {
         if (activeStep === 0) {
             if (isSkip) {
                 setFormData({...formData, title: ''});
                 setActiveStep((prev) => prev + 1);
             } else {
-                if (formData.title === '' && inputRef.current) {
-                    inputRef.current.focus();
+                if (formData.title === '') {
+                    if (inputRef.current) {
+                        inputRef.current.focus();
+                    }
                 } else  {
                     setActiveStep((prev) => prev + 1);
                 }
             }
         }
-    }, [activeStep]);
-
-    const createContentMutation = useMutation({
-        mutationFn: (data: FormDataType) => createContent(data),
-        onSettled: () => queryClient.invalidateQueries({ queryKey: ['contents'] })
-    })
+    }
+    //
+    // const createContentMutation = useMutation({
+    //     mutationFn: (data: FormDataType) => createContent(data),
+    //     onSettled: () => queryClient.invalidateQueries({ queryKey: ['contents'] })
+    // })
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        createContentMutation.mutate(formData);
-        setFormData({
-            title: '',
-            type: 'audio',
-            text: '',
-            isDisplay: true,
-        })
-        navigate(-1);
+        // createContentMutation.mutate(formData);
+        // setFormData({
+        //     title: '',
+        //     type: 'audio',
+        //     text: '',
+        //     isDisplay: true,
+        // })
+        // navigate(-1);
     }
 
     const steps = [
@@ -134,6 +136,7 @@ const Create = () => {
             element: <LastStep formData={formData} setFormData={setFormData} />
         },
     ]
+    console.log(formData)
     return (
         <CreateContainer className='main'>
             <form onSubmit={handleSubmit}>
