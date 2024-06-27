@@ -12,12 +12,14 @@ export const useModal = () => {
         });
     }, [setModalDataState]);
 
-    const openModal = useCallback(({ title, content, callback }: ModalType) => {
+    const openModal = useCallback(({ title, content, callback, background, reverse }: ModalType) => {
         setModalDataState({
             isOpen: true,
             title: title,
             content: content,
             callback: callback,
+            reverse: reverse,
+            background: background,
         })
     }, [setModalDataState]);
 

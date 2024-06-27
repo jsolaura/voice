@@ -3,4 +3,6 @@ export type ModalType = {
     title: string;
     content: JSX.Element | string;
     callback?: () => any;
+    background?: boolean;
+    reverse?: boolean;
 }
