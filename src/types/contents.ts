@@ -5,6 +5,7 @@ export interface FormDataType {
     type: string;
     text?: string;
     displayedYn: string;
+    audioFile?: string | null;
 }
 
 export interface Content extends FormDataType {

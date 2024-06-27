@@ -6,8 +6,8 @@ export const getGenerateKey = () => {
 export const getCount = (count: number) => {
     return `${count}+`
 }
-export const formatTimes = (num: number) => {
-    return num < 10 ? `0${num}` : num;
+export const formatTimes = (num: number, isMinutes?: boolean) => {
+    return num < 10 ? `${!isMinutes ? '0': ''}${num}` : num;
 }
 
 export const durationFormat = (value: number) => {

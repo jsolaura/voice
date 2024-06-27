@@ -155,6 +155,10 @@ button.delete {
 .p0 {
   padding: 0;
 }
+.zHigh {
+  position: relative;
+  z-index: 2000;
+}
 
 .main {
   width: 100vw;

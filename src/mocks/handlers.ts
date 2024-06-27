@@ -38,7 +38,7 @@ export const handlers = [
             createAt: '2024-02-16',
             latlng: {lat: 37.54519899908906, lng: 126.94631791119016},
             title: 'test1',
-            type: 'text',
+            type: 'audio',
             text: '여기 너무 좋아요!',
             displayedYn: 'y',
             address: '서울시 공덕동',
