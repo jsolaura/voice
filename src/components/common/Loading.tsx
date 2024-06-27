@@ -1,6 +1,6 @@
 import React from 'react';
-import LoadingImage from "@/assets/images/circleLoading.gif";
 import styled from "styled-components";
+import {CircularProgress} from "@mui/material";
 
 const LoadingContainer = styled.div`
   position: fixed;
@@ -23,7 +23,7 @@ const LoadingContainer = styled.div`
 const Loading = () => {
     return (
         <LoadingContainer>
-            <img src={LoadingImage} alt='loadingGif' />
+            <CircularProgress sx={{ color: 'white' }} />
         </LoadingContainer>
     );
 };

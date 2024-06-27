@@ -97,7 +97,7 @@ const Create = () => {
     const { status, startRecording, pauseRecording, stopRecording, clearBlobUrl, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
     const recorder: RecorderProps = { status, startRecording, pauseRecording, stopRecording };
     const recorderStatus: RecorderStatusProps = {
-        recordingStatus: status === 'recording' || (status !== 'paused' && status !== 'stopping' && status !== 'stopped'),
+        recordingStatus: status === 'recording' || (status !== 'paused' && status !== 'stopping' && status !== 'stopped' && status !== 'idle'),
         pausedStatus:  status === 'paused',
         stoppedStatus:  status === 'stopping' || status === 'stopped',
     }
@@ -146,7 +146,6 @@ const Create = () => {
     //     mutationFn: (data: FormDataType) => createContent(data),
     //     onSettled: () => queryClient.invalidateQueries({ queryKey: ['contents'] })
     // })
-
 
     const initRecording = async () => {
         await setFormData({ ...formData, type: 'audio', text: '' })
