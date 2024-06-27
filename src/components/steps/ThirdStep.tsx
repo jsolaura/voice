@@ -34,6 +34,9 @@ const ThirdStepContainer = styled.article`
   .recording {
     .circle {
       position: relative;
+      svg {
+        overflow: auto;
+      }
     }
     button {
       position: relative;
@@ -110,10 +113,11 @@ const ThirdStep = ({ formData, handleChanged, recorder, recorderStatus }: { form
                                     transform: 'translate(-50%, -50%) rotate(-90deg) !important',
                                     color: '#EBEDEE',
                                     filter: 'blur(6px)',
+                                    overflow: 'auto'
                                 }}
                                 variant="determinate"
                                 value={normalise(progress)}
-                                size={139}
+                                size={140}
                                 thickness={10}
                             />
                         }
