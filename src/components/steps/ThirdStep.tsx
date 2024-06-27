@@ -12,11 +12,6 @@ const ThirdStepContainer = styled.article`
   width: 85%;
   margin: 0 auto;
   position: relative;
-  span {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-  }
   textarea {
     width: 100%;
     height: auto;
@@ -108,17 +103,18 @@ const ThirdStep = ({ formData, handleChanged, recorder, recorderStatus }: { form
                         {recordingStatus &&
                             <CircularProgress
                                 sx={{
+                                    position: 'absolute',
                                     top: '49%',
                                     left: '50%',
                                     transform: 'translate(-50%, -50%) rotate(-90deg) !important',
                                     color: '#EBEDEE',
-                                    filter: 'blur(6px)',
+                                    filter: 'blur(4px)',
                                     overflow: 'auto'
                                 }}
                                 variant="determinate"
                                 value={normalise(progress)}
                                 size={140}
-                                thickness={10}
+                                thickness={4}
                             />
                         }
                         <button onClick={pausedStatus ? startRecording : pauseRecording} className='p0'>
