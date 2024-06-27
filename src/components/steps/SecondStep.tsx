@@ -23,7 +23,7 @@ const SecondStep = ({ formData, activeStep, setFormData, setActiveStep, startRec
             <button onClick={startRecording} className='recordingBtn p0'>
                 <img src={RecordingBtn} alt='Recording button'/>
             </button>
-            <button onClick={() => setFormData({ ...formData, type: 'text' })}>
+            <button onClick={() => setFormData({ ...formData, type: 'text' })} className='p0'>
                 <p className='underline'>글로 쓸게요.</p>
             </button>
         </SecondStepContainer>

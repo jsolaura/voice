@@ -14,6 +14,8 @@ html {
 
 body {
   font-family: "Roboto", sans-serif;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   /*background-color: #f2ea02;*/
 }
 a {
