@@ -126,7 +126,11 @@ const MapWrapper = () => {
                 lng: coords.getLng(),
             },
         })
-        geocoder.coord2Address(coords.getLng(), coords.getLat(), (result, status) =>  setAddress(setupAddress(result[0]?.address?.address_name.split(' '), status)));
+        geocoder.coord2Address(coords.getLng(), coords.getLat(), (result, status) => {
+            if (result.length > 0) {
+                setAddress(setupAddress(result[0].address.address_name.split(' '), status))
+            }
+        });
 
     },[]);
     return (

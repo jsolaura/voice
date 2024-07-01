@@ -26,7 +26,11 @@ const Home = () => {
     const getPositionSuccess = (pos: GeolocationPosition) => {
         setCurrentPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude })
         setRememberPos({ lat: pos.coords.latitude, lng: pos.coords.longitude })
-        geocoder.coord2Address(pos.coords.longitude, pos.coords.latitude, (result, status) => setAddress(setupAddress(result[0].address.address_name.split(' '), status)));
+        geocoder.coord2Address(pos.coords.longitude, pos.coords.latitude, (result, status) => {
+            if (result.length > 0) {
+                setAddress(setupAddress(result[0].address.address_name.split(' '), status))
+            }
+        });
     }
     return (
         <div className="App">

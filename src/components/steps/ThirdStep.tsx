@@ -28,6 +28,7 @@ const ThirdStepContainer = styled.article`
   }
   .recording {
     .circle {
+      padding: 32px 0;
       position: relative;
       svg {
         overflow: visible;
@@ -35,7 +36,7 @@ const ThirdStepContainer = styled.article`
     }
     button {
       position: relative;
-      margin: 32px 0;
+      //margin: 32px 0;
       z-index: 100;
     }
   }
@@ -101,27 +102,27 @@ const ThirdStep = ({ formData, handleChanged, recorder, recorderStatus }: { form
                     <p>{formatTimes(time.minutes, true)}:{formatTimes(time.seconds)}</p>
                     <div className='circle'>
                         {recordingStatus &&
-                            <CircularProgress
-                                sx={{
-                                    position: 'absolute',
-                                    top: '49%',
-                                    left: '50%',
-                                    transform: 'translate(-50%, -50%) rotate(-90deg) !important',
-                                    color: '#EBEDEE',
-                                    filter: 'blur(4px)',
-                                    overflow: 'visible'
-                                }}
-                                variant="determinate"
-                                value={normalise(progress)}
-                                size={140}
-                                thickness={4}
-                            />
+                        <CircularProgress
+                            sx={{
+                                position: 'absolute',
+                                top: '48%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%) rotate(-90deg) !important',
+                                color: '#EBEDEE',
+                                filter: 'blur(4px)',
+                                overflow: 'visible',
+                            }}
+                            variant="determinate"
+                            value={normalise(progress)}
+                            size={140}
+                            thickness={4}
+                        />
                         }
                         <button onClick={pausedStatus ? startRecording : pauseRecording} className='p0'>
                             <img src={pausedStatus ? PausedBtn : stoppedStatus ? StoppedBtn: HearingBtn} alt='Recording button'/>
                         </button>
                     </div>
-                    <p>{recordingStatus ? '듣고 있어요' : pausedStatus ? '이야기를 마치셨나요?' : '잘 들었어요.'}</p>
+                    <p>{recordingStatus ? '듣고 있어요.' : pausedStatus ? '이야기를 마치셨나요?' : '잘 들었어요.'}</p>
                 </div>
             )}
         </ThirdStepContainer>
