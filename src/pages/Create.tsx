@@ -17,6 +17,7 @@ import {useReactMediaRecorder} from "react-media-recorder";
 import {RecorderProps, RecorderStatusProps} from "@/types/audioPlayer";
 
 const CreateContainer = styled.main`
+  min-height: 100dvh;
   &.recording {
     position: relative;
     &:after {

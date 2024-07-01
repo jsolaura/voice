@@ -44,7 +44,7 @@ function App() {
                     <Route path='/login' element={<Login />} />
                     <Route path='/auth' element={<Redirect />} />
                     {/*<Route element={<ProtectedRoute />}>*/}
-                        <Route path='/content/:id' element={<Detail />} />
+                        <Route path='/contents/:id' element={<Detail />} />
                         <Route path='/create' element={<Create />} />
                         <Route path='/myPage' element={<MyPage />} />
                     {/*</Route>*/}

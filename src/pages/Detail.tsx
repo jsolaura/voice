@@ -9,6 +9,7 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchContent, fetchContents} from "@/services/contentsService";
 
 const DetailContainer = styled.main`
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   gap: 110px;
