@@ -30,7 +30,7 @@ const ThirdStepContainer = styled.article`
     .circle {
       position: relative;
       svg {
-        overflow: auto;
+        overflow: visible;
       }
     }
     button {
@@ -109,7 +109,7 @@ const ThirdStep = ({ formData, handleChanged, recorder, recorderStatus }: { form
                                     transform: 'translate(-50%, -50%) rotate(-90deg) !important',
                                     color: '#EBEDEE',
                                     filter: 'blur(4px)',
-                                    overflow: 'auto'
+                                    overflow: 'visible'
                                 }}
                                 variant="determinate"
                                 value={normalise(progress)}
