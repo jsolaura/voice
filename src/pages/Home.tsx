@@ -34,7 +34,7 @@ const Home = () => {
     }
     return (
         <div className="App">
-            { isLoggedIn && <SideNav /> }
+            {/*{ isLoggedIn && <SideNav /> }*/}
             <Header />
             <MapWrapper />
             <BottomNav rememberPos={rememberPos} />
